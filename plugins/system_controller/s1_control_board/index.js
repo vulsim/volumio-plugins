@@ -36,7 +36,6 @@ s1ControlBoard.prototype.onStart = function() {
     var self = this;
 	var defer=libQ.defer();
 
-
 	serialPort.write("SYS_ON\n");
 	defer.resolve();
 
