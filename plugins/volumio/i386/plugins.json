@@ -266,6 +266,24 @@
 						}
 					],
 					"updated": "18-11-2017"
+				},
+				{
+					"prettyName": "s1_control_board",
+					"icon": "fa-lightbulb-o",
+					"name": "s1_control_board",
+					"version": "1.0.0",
+					"url": "http://volumio.github.io/volumio-plugins/plugins/volumio/i386/system_controller/s1_control_board/s1_control_board.zip",
+					"license": "ISC",
+					"description": "Source 1 Control Board Support",
+					"details": "",
+					"author": "SecretLab",
+					"screenshots": [
+						{
+							"image": "",
+							"thumb": ""
+						}
+					],
+					"updated": "26-6-2021"
 				}
 			]
 		},
