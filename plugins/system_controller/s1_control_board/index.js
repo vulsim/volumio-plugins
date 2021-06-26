@@ -7,7 +7,11 @@ var exec = require('child_process').exec;
 var execSync = require('child_process').execSync;
 
 const SerialPort = require("serialport");
-const serialPort = new SerialPort("/dev/ttyUSB0", { baudRate: 57600, autoOpen: true });
+const serialPort = new SerialPort("/dev/ttyUSB0", { baudRate: 57600, autoOpen: false });
+
+serialPort.on('error', function(err) {
+  console.log('SerialPort->Error: ', err.message)
+});
 
 module.exports = s1ControlBoard;
 function s1ControlBoard(context) {
@@ -17,9 +21,7 @@ function s1ControlBoard(context) {
 	this.commandRouter = this.context.coreCommand;
 	this.logger = this.context.logger;
 	this.configManager = this.context.configManager;
-
 }
-
 
 
 s1ControlBoard.prototype.onVolumioStart = function()
@@ -36,8 +38,13 @@ s1ControlBoard.prototype.onStart = function() {
     var self = this;
 	var defer=libQ.defer();
 
-	serialPort.write("SYS_ON\n");
-	defer.resolve();
+	serialPort.open(function(err) {
+		if (!err) {
+			serialPort.write('SYS_ON\n');
+		}
+
+		defer.resolve();
+	});
 
     return defer.promise;
 };
@@ -46,17 +53,17 @@ s1ControlBoard.prototype.onStop = function() {
     var self = this;
     var defer=libQ.defer();
 
-    serialPort.write("SYS_OFF\n");
-    defer.resolve();
+    serialPort.write('SYS_OFF\n', function(err) {
+    	serialPort.close();
+    	defer.resolve();
+    });
 
     return libQ.resolve();
 };
 
 s1ControlBoard.prototype.onRestart = function() {
     var self = this;
-    serialPort.write("SYS_RESTART\n");
 };
-
 
 // Configuration Methods -----------------------------------------------------------------------------
 
