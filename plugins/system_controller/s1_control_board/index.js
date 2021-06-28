@@ -23,15 +23,37 @@ function s1ControlBoard(context) {
 	this.configManager = this.context.configManager;
 }
 
-
-s1ControlBoard.prototype.onVolumioStart = function()
-{
+s1ControlBoard.prototype.onVolumioStart = function() {
 	var self = this;
 	var configFile=this.commandRouter.pluginManager.getConfigurationFile(this.context,'config.json');
 	this.config = new (require('v-conf'))();
 	this.config.loadFile(configFile);
 
     return libQ.resolve();
+}
+
+s1ControlBoard.prototype.onVolumioShutdown = function() {
+    var self = this;
+    var defer=libQ.defer();
+
+    serialPort.write('SYS_OFF\n', function(err) {
+        serialPort.close();
+        defer.resolve();
+    });
+
+    return defer.promise;
+}
+
+s1ControlBoard.prototype.onVolumioReboot = function() {
+    var self = this;
+    var defer=libQ.defer();
+
+    serialPort.write('SYS_OFF\n', function(err) {
+        serialPort.close();
+        defer.resolve();
+    });
+
+    return defer.promise;
 }
 
 s1ControlBoard.prototype.onStart = function() {
@@ -62,7 +84,7 @@ s1ControlBoard.prototype.onStop = function() {
 };
 
 s1ControlBoard.prototype.onRestart = function() {
-    var self = this;
+    
 };
 
 // Configuration Methods -----------------------------------------------------------------------------

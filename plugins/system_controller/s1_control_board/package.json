@@ -1,7 +1,7 @@
 {
 	"name": "s1_control_board",
 	"version": "1.0.0",
-	"description": "Source 1 Control Board Support",
+	"description": "Source 1 - Control Board Support",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
@@ -9,9 +9,9 @@
 	"author": "SecretLab",
 	"license": "ISC",
 	"volumio_info": {
-		"prettyName": "s1_control_board",
-		"icon": "fa-lightbulb-o",
-		"plugin_type": "system_controller"
+		"prettyName": "Source 1 - Control Board Support",
+		"plugin_type": "system_controller",
+		"has_configuration": false
 	},
 	"dependencies": {
 		"fs-extra": "^0.28.0",
