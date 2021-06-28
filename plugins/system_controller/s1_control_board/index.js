@@ -48,7 +48,7 @@ s1ControlBoard.prototype.onVolumioReboot = function() {
     var self = this;
     var defer=libQ.defer();
 
-    serialPort.write('SYS_OFF\n', function(err) {
+    serialPort.write('SYS_WAIT\n', function(err) {
         serialPort.close();
         defer.resolve();
     });
@@ -75,7 +75,7 @@ s1ControlBoard.prototype.onStop = function() {
     var self = this;
     var defer=libQ.defer();
 
-    serialPort.write('SYS_OFF\n', function(err) {
+    serialPort.write('SYS_WAIT\n', function(err) {
     	serialPort.close();
     	defer.resolve();
     });
